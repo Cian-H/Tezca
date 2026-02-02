@@ -1,6 +1,6 @@
 # Tezca - The Serpent's Venerable Enemy
 
-<a title="Mario E. Fuente Cid, CC BY-SA 4.0 &lt;https://creativecommons.org/licenses/by-sa/4.0&gt;, via Wikimedia Commons" href="https://commons.wikimedia.org/wiki/File:Codex_F%C3%A9jervary-Mayer_Lamina_01.svg"><img width="512" alt="Plate 01 from Féjervary-Mayer" src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/2e/Codex_F%C3%A9jervary-Mayer_Lamina_01.svg/512px-Codex_F%C3%A9jervary-Mayer_Lamina_01.svg.png?20240505211730"></a>
+[![Plate 01 from Féjervary-Mayer](https://upload.wikimedia.org/wikipedia/commons/thumb/2/2e/Codex_F%C3%A9jervary-Mayer_Lamina_01.svg/512px-Codex_F%C3%A9jervary-Mayer_Lamina_01.svg.png?20240505211730)](https://commons.wikimedia.org/wiki/File:Codex_F%C3%A9jervary-Mayer_Lamina_01.svg "Mario E. Fuente Cid, CC BY-SA 4.0, via Wikimedia Commons")
 
 ## Overview
 
