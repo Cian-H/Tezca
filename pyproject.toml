@@ -1,0 +1,52 @@
+[project]
+name = "tezca"
+version = "0.1.0"
+description = "A library designed to selectively disable certain features of the python programming language."
+authors = [{ name = "Cian Hughes", email = "cian.hughes@dcu.ie" }]
+license = "LGPLv3"
+requires-python = ">=3.13"
+
+[build-system]
+requires = ["uv_build>=0.9.18,<0.10.0"]
+build-backend = "uv_build"
+
+[dependency-groups]
+dev = ["pydoclint>=0.8.3", "pyright>=1.1.408", "ruff>=0.14.14"]
+
+[tool.pyright]
+typeCheckingMode = "strict"
+reportMissingTypeStubs = true
+reportMissingImports = true
+
+[tool.ruff]
+line-length = 100
+indent-width = 4
+target-version = "py313"
+
+[tool.ruff.format]
+quote-style = "double"
+indent-style = "space"
+docstring-code-format = true
+
+[tool.ruff.lint]
+select = [
+    "F",   # Pyflakes (standard linting)
+    "E",   # Pycodestyle (standard linting)
+    "W",   # Pycodestyle warnings
+    "I",   # Isort (automates import sorting)
+    "N",   # PEP8-naming (enforces naming conventions)
+    "UP",  # Pyupgrade (modernizes syntax)
+    "B",   # Flake8-bugbear (finds likely bugs)
+    "A",   # Flake8-builtins (prevents shadowing builtins)
+    "SIM", # Flake8-simplify (suggests code simplifications)
+    "ANN", # Flake8-annotations (Enforces that everything is typed)
+    "D",   # Pydocstyle (Enforces docstring presence and style)
+]
+
+[tool.ruff.lint.pydocstyle]
+convention = "google"
+
+[tool.pydoclint]
+style = "google"
+exclude = '\.git|__pycache__|tests'
+require-return-section-when-returning-nothing = false
