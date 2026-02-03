@@ -19,10 +19,33 @@ invoked to restrict or change the behaviour of the interpreter. This can be usef
 
 The various components of the module are used to construct a composite object called a `Ruleset`.
 `Ruleset`s are composites that contain a `List[Ruleset|Rule]`, forming a recursive tree of `Rule`s.
-Invoking `Ruleset.invoke` causes the `Ruleset` to be injected into the interpreter as an audit hook
-(see [PEP 578](https://peps.python.org/pep-0578/)). Once the `Ruleset` hook has been injected, it
-checks the nodes of the AST to ensure that the imposed rules haven't been violated. If any `Rule`
-is triggered, it will then respone by running specified code (e.g: raising an error).
+Invoking the `RuleEngine` with a `Rule` or `Ruleset` causes the engine to scan the AST for rule
+violations and trigger their associated action if any are found. The package also provides hooks
+that can ne injected into the interpreter as an audit hook (see
+[PEP 578](https://peps.python.org/pep-0578/)). Once the hook has been injected with a ruleset by
+calling `monitor_repl`, it will check any new AST nodes compiled and trigger the action associated
+with those rules if any are found to be violated. `Rule` actions are simple functions passed to
+the `Rule` constructor, that will be executed if a node that violates thr `Rule`s predicate
+function is found.
+
+## Example
+
+```python
+import ast
+from tezca import Rule, RuleError monitor_repl
+from tezca.errors import RuleError
+
+def is_import_os(node):
+    return isinstance(node, ast.Import) \
+           and "os" in (name.name for name in node.names)
+
+def alert(node):
+    raise RuleError("User attempting to load `os` module")
+
+monitor_repl([Rule(is_import_os, alert)])
+
+import os # triggers a `RuleError`
+```
 
 ## Why "Tezca"?
 
