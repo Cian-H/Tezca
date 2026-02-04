@@ -5,7 +5,8 @@ condition (predicate) and a consequence (action).
 """
 
 import ast
-from collections.abc import Callable
+
+from .types import Action, Predicate
 
 
 class Rule:
@@ -16,15 +17,17 @@ class Rule:
     condition is met (the action).
 
     Attributes:
-        predicate: A function that takes an AST node and returns True if the
-            rule should trigger, and False otherwise.
-        action: A function that executes a side effect (usually raising a
-            RuleError) when the predicate returns True.
+        predicate (Predicate): A callable that evaluates an AST node and returns
+            True if the rule criteria are met.
+        action (Action): A callable that executes a side effect (e.g., raising
+            an error) when the rule criteria are met.
+        predicates (tuple[Predicate, ...]): A tuple containing the initialized
+            predicate (and potentially others if extended).
+        actions (tuple[Action, ...]): A tuple containing the initialized action
+            (and potentially others if extended).
     """
 
-    def __init__(
-        self, predicate: Callable[[ast.AST], bool], action: Callable[[ast.AST], None]
-    ) -> None:
+    def __init__(self, predicate: Predicate, action: Action) -> None:
         """Initializes a Rule with a specific condition and action.
 
         Args:
@@ -33,14 +36,16 @@ class Rule:
             action: A callable that accepts the matching ast.AST node and
                 performs an action (e.g., logging or raising an error).
         """
-        self.predicate = predicate
-        self.action = action
+        self.predicate: Predicate = predicate
+        self.action: Action = action
+        self.predicates: tuple[Predicate, ...] = (predicate,)
+        self.actions: tuple[Action, ...] = (action,)
 
     def check_and_trigger(self, node: ast.AST) -> None:
         """Evaluates the rule against a specific node.
 
-        If the predicate function returns True for the given node, the
-        action function is immediately executed.
+        Checks the node against the primary `predicate`. If it returns True,
+        the primary `action` is executed immediately.
 
         Args:
             node: The AST node to evaluate.

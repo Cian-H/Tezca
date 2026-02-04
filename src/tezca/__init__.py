@@ -5,8 +5,9 @@ language. The module provides objects that can be used to compose `Ruleset`s, th
 invoked to restrict or change the behaviour of the interpreter.
 """
 
-__all__ = ["Rule", "RuleEngine", "monitor_repl"]
+__all__ = ["Rule", "RuleSet", "RuleEngine", "monitor_repl"]
 
 from .engine import RuleEngine
 from .hooks import monitor_repl
 from .rule import Rule
+from .ruleset import RuleSet
